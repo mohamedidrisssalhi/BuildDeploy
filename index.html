@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Professional Todo Manager - Organize tasks with time blocks, projects, and dark mode support">
+  <meta name="theme-color" content="#007AFF">
+  <title>Professional Todo Manager</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <link rel="preload" href="script.js" as="script">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'%3E%3Crect width='192' height='192' fill='%23007AFF' rx='32'/%3E%3Cpath d='M60 100 L85 125 L135 75' stroke='white' stroke-width='12' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <h1>Todo Manager</h1>
+      </div>
+      
+      <!-- Week Navigation -->
+      <div class="week-navigation">
+        <button id="prev-week" class="nav-btn">←</button>
+        <span id="current-week" class="week-display">Week of Jan 15, 2025</span>
+        <button id="next-week" class="nav-btn">→</button>
+      </div>
+      
+      <!-- Time Block Navigation -->
+      <nav class="time-blocks">
+        <div class="time-block-group">
+          <h3>Time Blocks</h3>
+          <button class="time-block-btn active" data-block="day" data-period="today">Today</button>
+          <button class="time-block-btn" data-block="week" data-period="current">This Week</button>
+          <button class="time-block-btn" data-block="month" data-period="current">This Month</button>
+          <button class="time-block-btn" data-block="year" data-period="current">This Year</button>
+        </div>
+        
+        <div class="time-block-group">
+          <h3>Daily View</h3>
+          <div class="daily-blocks">
+            <button class="time-block-btn day-btn" data-block="day" data-day="0">Sunday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="1">Monday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="2">Tuesday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="3">Wednesday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="4">Thursday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="5">Friday</button>
+            <button class="time-block-btn day-btn" data-block="day" data-day="6">Saturday</button>
+          </div>
+        </div>
+        
+        <div class="time-block-group">
+          <h3>Future Planning</h3>
+          <div class="future-blocks">
+            <button class="time-block-btn" data-block="week" data-period="next-6">Next 6 Weeks</button>
+            <button class="time-block-btn" data-block="month" data-period="next-6">Next 6 Months</button>
+          </div>
+        </div>
+      </nav>
+      
+      <!-- Project View -->
+      <div class="projects-section">
+        <h3>Projects</h3>
+        <div id="projects-list" class="projects-list">
+          <!-- Projects will be populated here -->
+        </div>
+        <button id="add-project-btn" class="add-project-btn">+ New Project</button>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <!-- Header -->
+      <header class="main-header">
+        <h2 id="view-title">Today</h2>
+        <div class="header-actions">
+          <button id="theme-toggle" class="theme-toggle-btn">🌙</button>
+          <button id="export-data" class="export-btn">Export</button>
+        </div>
+      </header>
+      
+      <!-- Quick Entry -->
+      <div class="quick-entry">
+        <textarea 
+          id="quick-input" 
+          placeholder="Type your todos here...
+Example:
+- Complete project proposal
+  - Research competitors
+  - Create slides
+  - Schedule meeting @work
+- Buy groceries @personal
+- Plan vacation @family"
+          rows="4"
+        ></textarea>
+        <div class="quick-entry-actions">
+          <button id="add-todos" class="add-btn">Add Tasks</button>
+          <button id="clear-entry" class="clear-btn">Clear</button>
+        </div>
+      </div>
+      
+      <!-- Todo List -->
+      <div class="todo-container">
+        <div class="todo-header">
+          <div class="todo-controls">
+            <button id="select-all" class="control-btn">Select All</button>
+            <button id="delete-selected" class="control-btn delete">Delete Selected</button>
+            <button id="move-selected" class="control-btn">Move Selected</button>
+          </div>
+          <div class="view-options">
+            <button id="collapse-all" class="view-btn">Collapse All</button>
+            <button id="expand-all" class="view-btn">Expand All</button>
+          </div>
+        </div>
+        
+        <div id="todo-list" class="todo-list">
+          <!-- Todos will be populated here -->
+        </div>
+        
+        <div class="todo-stats">
+          <div class="stat-item">
+            <span class="stat-label">Total:</span>
+            <span id="total-count">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Completed:</span>
+            <span id="completed-count">0</span>
+          </div>
+          <div class="stat-item">
+            <span class="stat-label">Progress:</span>
+            <span id="progress-percentage">0%</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+  
+  <!-- Move Modal -->
+  <div id="move-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Move Tasks</h3>
+        <button class="close-btn" id="close-move-modal">×</button>
+      </div>
+      <div class="modal-body">
+        <label>Move to:</label>
+        <select id="move-target" class="time-select">
+          <option value="day">Today</option>
+          <option value="week">This Week</option>
+          <option value="month">This Month</option>
+          <option value="year">This Year</option>
+        </select>
+        <div class="modal-actions">
+          <button id="confirm-move" class="confirm-btn">Move</button>
+          <button id="cancel-move" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Project Modal -->
+  <div id="project-modal" class="modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>New Project</h3>
+        <button class="close-btn" id="close-project-modal">×</button>
+      </div>
+      <div class="modal-body">
+        <input type="text" id="project-name" placeholder="Project name..." />
+        <textarea id="project-description" placeholder="Description (optional)..." rows="3"></textarea>
+        <div class="modal-actions">
+          <button id="create-project" class="confirm-btn">Create</button>
+          <button id="cancel-project" class="cancel-btn">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,1138 @@
+/* Professional Todo Manager Styles */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #007AFF;
+  --secondary-color: #5856D6;
+  --success-color: #34C759;
+  --warning-color: #FF9500;
+  --danger-color: #FF3B30;
+  --background-color: #F2F2F7;
+  --surface-color: #FFFFFF;
+  --text-primary: #000000;
+  --text-secondary: #6D6D70;
+  --border-color: #E5E5EA;
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  --shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --border-radius: 12px;
+  --transition: all 0.2s cubic-bezier(0.4, 0.0, 0.2, 1);
+}
+
+/* Dark mode variables */
+[data-theme="dark"] {
+  --primary-color: #0A84FF;
+  --secondary-color: #5E5CE6;
+  --success-color: #32D74B;
+  --warning-color: #FF9F0A;
+  --danger-color: #FF453A;
+  --background-color: #0D1117;
+  --surface-color: #161B22;
+  --text-primary: #FFFFFF;
+  --text-secondary: #FFFFFF;
+  --border-color: #21262D;
+  --shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+  --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.35);
+  
+  /* Dark mode specific colors */
+  --surface-hover: #21262D;
+  --surface-active: #30363D;
+  --accent-bg: rgba(10, 132, 255, 0.1);
+  --accent-border: rgba(10, 132, 255, 0.3);
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Force body text to be white in dark mode */
+[data-theme="dark"] body {
+  color: #FFFFFF !important;
+}
+
+.app-container {
+  display: grid;
+  grid-template-columns: 280px 1fr;
+  min-height: 100vh;
+}
+
+/* Sidebar Styles */
+.sidebar {
+  background: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+  padding: 20px;
+  overflow-y: auto;
+}
+
+.sidebar-header h1 {
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.week-navigation {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  padding: 12px;
+  background: var(--background-color);
+  border-radius: var(--border-radius);
+}
+
+.nav-btn {
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: var(--transition);
+  font-size: 16px;
+}
+
+.nav-btn:hover {
+  background: var(--border-color);
+}
+
+.week-display {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.time-blocks {
+  margin-bottom: 30px;
+}
+
+.time-block-group {
+  margin-bottom: 24px;
+}
+
+.time-block-group h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.time-block-btn {
+  display: block;
+  width: 100%;
+  padding: 12px 16px;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: var(--transition);
+  font-size: 14px;
+  margin-bottom: 4px;
+}
+
+.time-block-btn:hover {
+  background: var(--background-color);
+}
+
+.time-block-btn.active {
+  background: var(--primary-color);
+  color: white;
+}
+
+.daily-blocks .time-block-btn {
+  font-size: 13px;
+  padding: 8px 16px;
+}
+
+.projects-section {
+  border-top: 1px solid var(--border-color);
+  padding-top: 20px;
+}
+
+.projects-section h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.projects-list {
+  margin-bottom: 16px;
+}
+
+.project-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 16px;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  margin-bottom: 4px;
+}
+
+.project-item:hover {
+  background: var(--background-color);
+}
+
+.project-name {
+  font-size: 14px;
+}
+
+.project-count {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--border-color);
+  padding: 2px 8px;
+  border-radius: 12px;
+}
+
+.add-project-btn {
+  width: 100%;
+  padding: 12px;
+  background: var(--background-color);
+  border: 1px dashed var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.add-project-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Main Content */
+.main-content {
+  padding: 24px;
+  overflow-y: auto;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.main-header h2 {
+  font-size: 28px;
+  font-weight: 600;
+}
+
+.header-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.theme-toggle-btn, .export-btn {
+  padding: 8px 16px;
+  border: 1px solid var(--border-color);
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-size: 14px;
+  transition: var(--transition);
+}
+
+.theme-toggle-btn {
+  font-size: 18px;
+  width: 44px;
+  padding: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-btn::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: var(--primary-color);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s ease, height 0.3s ease;
+  z-index: -1;
+}
+
+.theme-toggle-btn:hover::before {
+  width: 100%;
+  height: 100%;
+}
+
+.theme-toggle-btn:hover {
+  color: white;
+  border-color: var(--primary-color);
+  transform: scale(1.05);
+}
+
+.theme-toggle-btn:hover, .export-btn:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+/* Quick Entry */
+.quick-entry {
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  padding: 20px;
+  margin-bottom: 24px;
+  box-shadow: var(--shadow);
+}
+
+#quick-input {
+  width: 100%;
+  min-height: 100px;
+  padding: 16px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+  resize: vertical;
+  transition: var(--transition);
+}
+
+#quick-input:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.quick-entry-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.add-btn {
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.add-btn:hover {
+  background: #0051D0;
+  transform: translateY(-1px);
+}
+
+.clear-btn {
+  padding: 12px 24px;
+  background: none;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.clear-btn:hover {
+  background: var(--background-color);
+}
+
+/* Todo Container */
+.todo-container {
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+
+.todo-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--background-color);
+}
+
+.todo-controls, .view-options {
+  display: flex;
+  gap: 8px;
+}
+
+.control-btn, .view-btn {
+  padding: 6px 12px;
+  background: none;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: var(--transition);
+}
+
+.control-btn:hover, .view-btn:hover {
+  background: var(--border-color);
+}
+
+.control-btn.delete {
+  color: var(--danger-color);
+  border-color: var(--danger-color);
+}
+
+.control-btn.delete:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+/* Todo List */
+.todo-list {
+  min-height: 300px;
+  max-height: 600px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  display: flex;
+  align-items: flex-start;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+  transition: var(--transition);
+  cursor: pointer;
+}
+
+.todo-item:hover {
+  background: var(--background-color);
+}
+
+.todo-item.selected {
+  background: rgba(0, 122, 255, 0.1);
+  border-left: 3px solid var(--primary-color);
+}
+
+.todo-item.completed {
+  opacity: 0.6;
+}
+
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+.todo-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--border-color);
+  border-radius: 4px;
+  margin-right: 12px;
+  margin-top: 2px;
+  cursor: pointer;
+  transition: var(--transition);
+  flex-shrink: 0;
+}
+
+.todo-checkbox.checked {
+  background: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.todo-checkbox.checked::after {
+  content: '✓';
+  color: white;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.todo-content {
+  flex: 1;
+}
+
+.todo-text {
+  font-size: 14px;
+  line-height: 1.5;
+  margin-bottom: 4px;
+}
+
+.todo-meta {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.todo-project {
+  font-size: 12px;
+  color: var(--primary-color);
+  background: rgba(0, 122, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.todo-timeblock {
+  font-size: 12px;
+  color: var(--text-secondary);
+  background: var(--border-color);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.todo-actions {
+  display: flex;
+  gap: 8px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.todo-item:hover .todo-actions {
+  opacity: 1;
+}
+
+.action-btn {
+  width: 24px;
+  height: 24px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  transition: var(--transition);
+  background: var(--border-color);
+}
+
+.action-btn:hover {
+  background: var(--text-secondary);
+  color: white;
+}
+
+.delete-action {
+  background: var(--danger-color);
+  color: white;
+}
+
+.delete-action:hover {
+  background: #D70015;
+}
+
+/* Subtasks */
+.subtasks {
+  margin-top: 8px;
+  margin-left: 30px;
+  border-left: 2px solid var(--border-color);
+  padding-left: 16px;
+}
+
+.subtask-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 0;
+  font-size: 13px;
+}
+
+.subtask-checkbox {
+  width: 14px;
+  height: 14px;
+  border: 1px solid var(--border-color);
+  border-radius: 3px;
+  margin-right: 8px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.subtask-checkbox.checked {
+  background: var(--success-color);
+  border-color: var(--success-color);
+}
+
+.subtask-text {
+  flex: 1;
+}
+
+.subtask-item.completed .subtask-text {
+  text-decoration: line-through;
+  color: var(--text-secondary);
+}
+
+/* Todo Stats */
+.todo-stats {
+  display: flex;
+  justify-content: space-between;
+  padding: 16px 20px;
+  background: var(--background-color);
+  border-top: 1px solid var(--border-color);
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  display: block;
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.stat-item span:last-child {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--surface-color);
+  border-radius: var(--border-radius);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  min-width: 400px;
+  max-width: 500px;
+  animation: modalSlide 0.3s ease-out;
+}
+
+@keyframes modalSlide {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -60%);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.close-btn {
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: none;
+  font-size: 18px;
+  cursor: pointer;
+  border-radius: 50%;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  background: var(--background-color);
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-body input,
+.modal-body textarea,
+.modal-body select {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  font-size: 14px;
+  margin-bottom: 16px;
+  transition: var(--transition);
+}
+
+.modal-body input:focus,
+.modal-body textarea:focus,
+.modal-body select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(0, 122, 255, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.confirm-btn {
+  padding: 12px 24px;
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  font-weight: 500;
+  transition: var(--transition);
+}
+
+.confirm-btn:hover {
+  background: #0051D0;
+}
+
+.cancel-btn {
+  padding: 12px 24px;
+  background: none;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.cancel-btn:hover {
+  background: var(--background-color);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .app-container {
+    grid-template-columns: 1fr;
+  }
+  
+  .sidebar {
+    position: fixed;
+    top: 0;
+    left: -280px;
+    height: 100vh;
+    z-index: 100;
+    transition: var(--transition);
+  }
+  
+  .sidebar.open {
+    left: 0;
+  }
+  
+  .modal-content {
+    min-width: 90%;
+    margin: 20px;
+  }
+}
+
+/* Empty State */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.empty-state h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: var(--text-primary);
+}
+
+.empty-state p {
+  font-size: 14px;
+  max-width: 300px;
+  line-height: 1.5;
+}
+
+/* Theme Transition */
+.theme-transition * {
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.theme-toggle-btn {
+  transition: var(--transition), transform 0.3s ease;
+}
+
+/* Enhanced theme transition effects */
+* {
+  transition: background-color var(--transition), color var(--transition), border-color var(--transition);
+}
+
+/* Dark mode improvements */
+[data-theme="dark"] .todo-checkbox::after {
+  color: white;
+}
+
+[data-theme="dark"] .subtask-checkbox::after {
+  color: white;
+}
+
+[data-theme="dark"] .theme-toggle-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--accent-border);
+}
+
+[data-theme="dark"] .time-block-btn.today {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--primary-color);
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .time-block-btn:hover {
+  background: var(--surface-hover);
+}
+
+[data-theme="dark"] .time-block-btn.active {
+  background: var(--primary-color);
+  color: white;
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+[data-theme="dark"] .todo-item:hover {
+  background: var(--surface-hover);
+}
+
+[data-theme="dark"] .todo-item.selected {
+  background: var(--accent-bg);
+  border-left: 3px solid var(--primary-color);
+}
+
+[data-theme="dark"] .project-item:hover {
+  background: var(--surface-hover);
+}
+
+[data-theme="dark"] .add-project-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+[data-theme="dark"] .modal {
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+}
+
+[data-theme="dark"] .modal-content {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
+}
+
+[data-theme="dark"] .quick-entry {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] #quick-input {
+  background: var(--surface-color);
+  color: var(--text-primary);
+  border-color: var(--border-color);
+}
+
+[data-theme="dark"] #quick-input::placeholder {
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .todo-container {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .todo-header {
+  background: var(--surface-hover);
+  border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .todo-stats {
+  background: var(--surface-hover);
+  border-top: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .control-btn:hover,
+[data-theme="dark"] .view-btn:hover {
+  background: var(--surface-active);
+}
+
+[data-theme="dark"] .control-btn.delete:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+[data-theme="dark"] .add-btn:hover {
+  background: #0066CC;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+}
+
+[data-theme="dark"] .todo-project {
+  background: var(--accent-bg);
+  color: var(--primary-color);
+  border: 1px solid var(--accent-border);
+}
+
+[data-theme="dark"] .todo-timeblock {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .action-btn:hover {
+  background: var(--surface-hover);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .action-btn.delete-action:hover {
+  background: var(--danger-color);
+  color: white;
+}
+
+[data-theme="dark"] .sidebar {
+  background: var(--surface-color);
+  border-right: 1px solid var(--border-color);
+}
+
+[data-theme="dark"] .project-count {
+  background: var(--surface-hover);
+  color: var(--text-secondary);
+}
+
+[data-theme="dark"] .empty-state {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  margin: 20px;
+}
+
+[data-theme="dark"] .week-navigation {
+  background: var(--surface-hover);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+}
+
+[data-theme="dark"] .nav-btn:hover {
+  background: var(--surface-active);
+  color: var(--primary-color);
+}
+
+/* Enhanced scrollbar styling for dark mode */
+[data-theme="dark"] ::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-track {
+  background: var(--background-color);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+[data-theme="dark"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--text-secondary);
+}
+
+/* Glowing effect for active elements in dark mode */
+[data-theme="dark"] .todo-checkbox.checked {
+  box-shadow: 0 0 10px rgba(50, 215, 75, 0.3);
+}
+
+[data-theme="dark"] .time-block-btn.active {
+  box-shadow: 0 0 15px rgba(10, 132, 255, 0.3);
+}
+
+[data-theme="dark"] button:focus {
+  box-shadow: 0 0 0 2px var(--primary-color), 0 0 10px rgba(10, 132, 255, 0.2);
+}
+
+[data-theme="dark"] input:focus,
+[data-theme="dark"] textarea:focus {
+  box-shadow: 0 0 0 2px var(--primary-color), 0 0 10px rgba(10, 132, 255, 0.1);
+}
+
+/* Enhanced text contrast in dark mode */
+[data-theme="dark"] h1,
+[data-theme="dark"] h2,
+[data-theme="dark"] h3 {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .stat-label {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .stat-item span:last-child {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .todo-text {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .subtask-text {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .project-name {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .week-display {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .time-block-group h3 {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .projects-section h3 {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .empty-state h3 {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .empty-state p {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .empty-projects {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] .modal-header h3 {
+  color: #FFFFFF;
+}
+
+[data-theme="dark"] label {
+  color: #FFFFFF;
+}
+
+/* Enhanced button states in dark mode */
+[data-theme="dark"] .confirm-btn {
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+}
+
+[data-theme="dark"] .confirm-btn:hover {
+  background: #0066CC;
+  box-shadow: 0 4px 12px rgba(10, 132, 255, 0.3);
+}
+
+[data-theme="dark"] .cancel-btn {
+  background: var(--surface-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+}
+
+[data-theme="dark"] .cancel-btn:hover {
+  background: var(--surface-hover);
+  border-color: var(--text-secondary);
+}
+
+/* Dark mode loading and disabled states */
+[data-theme="dark"] .loading {
+  opacity: 0.4;
+}
+
+[data-theme="dark"] button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+[data-theme="dark"] button:disabled:hover {
+  background: var(--surface-color);
+  transform: none;
+}
+
+/* Enhanced dark mode text colors */
+[data-theme="dark"] * {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] body,
+[data-theme="dark"] h1,
+[data-theme="dark"] h2, 
+[data-theme="dark"] h3,
+[data-theme="dark"] h4,
+[data-theme="dark"] h5,
+[data-theme="dark"] h6,
+[data-theme="dark"] p,
+[data-theme="dark"] span,
+[data-theme="dark"] div,
+[data-theme="dark"] button,
+[data-theme="dark"] .sidebar,
+[data-theme="dark"] .main-content {
+  color: #FFFFFF !important;
+}
+
+[data-theme="dark"] input,
+[data-theme="dark"] textarea,
+[data-theme="dark"] select {
+  color: #FFFFFF !important;
+  background: var(--surface-color) !important;
+}
+
+[data-theme="dark"] input::placeholder,
+[data-theme="dark"] textarea::placeholder,
+[data-theme="dark"] .todo-timeblock,
+[data-theme="dark"] .project-count {
+  color: #8B949E !important;
+}
+
+[data-theme="dark"] .todo-project {
+  color: var(--primary-color);
+}
+
+/* Loading states */
+.loading {
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Accessibility improvements */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus styles */
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
